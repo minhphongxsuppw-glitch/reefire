@@ -1,14 +1,16 @@
 /**
  * MODSKINFF PREMIUM SHELL V3 — main.js
- * Giao tiếp: Web → api.php (proxy) → admin_app.py (VPS)
+ * Giao tiếp: GitHub Pages → VPS (Direct API)
  */
 
-// Tự động nhận diện nếu chạy trực tiếp trên Flask (port 5000)
-const IS_DIRECT = window.location.port === '5000';
-const PHP_PROXY = 'api.php';
+// === CẤU HÌNH TẠI ĐÂY ===
+// Lưu ý: Nếu GitHub là HTTPS thì VPS cũng phải là HTTPS (nên dùng Cloudflare trỏ vào VPS)
+const VPS_URL = 'http://127.0.0.1:5000'; // THAY ĐỔI ĐỊA CHỈ IP VPS CỦA BẠN TẠI ĐÂY
+// ========================
 
 const app = {
     user: null,
+
 
     init: async function() {
         await this.checkInitialStatus();
@@ -18,7 +20,7 @@ const app = {
     // ── CHECK STATUS & AUTO-LOGIN ─────────────────
     checkInitialStatus: async function() {
         try {
-            let url = IS_DIRECT ? '/api/check_status' : `${PHP_PROXY}?action=check_status`;
+            let url = `${VPS_URL}/api/check_status`;
             const r = await fetch(url);
             const d = await r.json();
             if (d.status === 'offline') {
@@ -68,7 +70,7 @@ const app = {
 
         setInterval(async () => {
             try {
-                let url = IS_DIRECT ? '/api/check_status' : `${PHP_PROXY}?action=check_status`;
+                let url = `${VPS_URL}/api/check_status`;
                 const r = await fetch(url);
                 const d = await r.json();
                 if (d.status === 'online') {
@@ -105,7 +107,7 @@ const app = {
 
         // Check VPS online
         try {
-            let statusUrl = IS_DIRECT ? '/api/check_status' : `${PHP_PROXY}?action=check_status`;
+            let statusUrl = `${VPS_URL}/api/check_status`;
             const sr = await fetch(statusUrl);
             const sd = await sr.json();
             if (sd.status === 'offline') return alert('LỖI: VPS hiện đang Offline!');
@@ -247,7 +249,7 @@ const app = {
     // ── API HELPER ────────────────────────────────
     apiCall: async function(method, path, data) {
         const opts = { credentials: 'include' };
-        let url = IS_DIRECT ? `/api${path}` : `${PHP_PROXY}?path=${encodeURIComponent(path)}`;
+        let url = `${VPS_URL}/api${path}`;
 
         if (method === 'GET' && data) {
             const params = new URLSearchParams();
