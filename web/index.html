@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODSKINFF - PREMIUM SHELL V3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-mesh"></div>
+
+    <!-- Offline Overlay -->
+    <div id="offline-screen" class="main-wrapper fade-in" style="justify-content: center; align-items: center; text-align: center; border-color: rgba(255, 68, 68, 0.3);">
+        <div>
+            <div style="font-size: 5rem; margin-bottom: 20px;">⚠️</div>
+            <h1 style="font-size: 3rem; margin-bottom: 15px; color: #ff4444;">HỆ THỐNG OFFLINE</h1>
+            <p style="font-size: 1.2rem; color: var(--text-dim); max-width: 500px; margin: 0 auto;">Máy chủ VPS hiện đang mất kết nối hoặc bảo trì. Vui lòng quay lại sau ít phút.</p>
+            <div class="loader" style="margin-top: 30px; border-top-color: #ff4444; border-right-color: #ff4444;"></div>
+            <span style="color: var(--text-dim); margin-left: 10px;">Đang kết nối lại...</span>
+        </div>
+    </div>
+
+    <!-- Auth Section (Login/Register) -->
+    <div id="auth-section" class="auth-box fade-in hidden">
+        <div id="login-view">
+            <h1 style="font-size: 2.8rem; margin-bottom: 8px; font-weight: 700; background: linear-gradient(to right, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Kích Hoạt</h1>
+            <p style="color: var(--text-dim); margin-bottom: 40px; font-weight: 300;">Hệ thống Mod Premium - VPS v3.0</p>
+            
+            <input type="text" id="l-user" placeholder="Tên đăng nhập">
+            <input type="password" id="l-pass" placeholder="Mật khẩu bảo mật">
+            <button class="btn-primary" id="btn-login" onclick="app.login()">ĐĂNG NHẬP NGAY</button>
+            
+            <div style="margin-top: 35px; text-align: center; font-size: 0.95rem;">
+                <p style="color: var(--text-dim);">Chưa có tài khoản? <a href="#" onclick="app.toggleAuth()" style="color: var(--primary); text-decoration: none; font-weight: 600; transition: 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Tạo mới ngay</a></p>
+            </div>
+        </div>
+
+        <div id="register-view" class="hidden">
+            <h1 style="font-size: 2.8rem; margin-bottom: 8px; font-weight: 700; background: linear-gradient(to right, #00f2ff, #7000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Đăng Ký</h1>
+            <p style="color: var(--text-dim); margin-bottom: 40px; font-weight: 300;">Xác nhận OTP qua Gmail cá nhân</p>
+            
+            <div id="reg-step-1">
+                <input type="text" id="r-user" placeholder="Username">
+                <input type="email" id="r-email" placeholder="Gmail nhận mã OTP">
+                <input type="password" id="r-pass" placeholder="Mật khẩu mới">
+                <button class="btn-primary" id="btn-reg" onclick="app.register()">NHẬN MÃ XÁC THỰC</button>
+            </div>
+
+            <div id="reg-step-2" class="hidden fade-in" style="margin-top: 20px;">
+                <p style="color: #00ff88; margin-bottom: 15px; font-size: 0.9rem;">✓ Đã gửi mã OTP 6 số về Gmail của bạn.</p>
+                <input type="text" id="r-otp" placeholder="Nhập mã OTP 6 số" maxlength="6" style="text-align: center; font-size: 1.2rem; letter-spacing: 5px;">
+                <button class="btn-primary" id="btn-verify" onclick="app.verifyOTP()">XÁC NHẬN TẠO TÀI KHOẢN</button>
+            </div>
+            
+            <div style="margin-top: 35px; text-align: center; font-size: 0.95rem;">
+                <p style="color: var(--text-dim);">Đã có tài khoản? <a href="#" onclick="app.toggleAuth()" style="color: var(--primary); text-decoration: none; font-weight: 600;">Quay lại đăng nhập</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Section -->
+    <div id="dashboard-section" class="main-wrapper hidden fade-in">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">M</div>
+                <h2 style="font-size: 1.4rem; font-weight: 700; letter-spacing: 1px;">MODSKIN</h2>
+            </div>
+            
+            <nav style="flex: 1;">
+                <div class="nav-item active">
+                    <span style="font-size: 1.2rem;">🏠</span> Dashboard
+                </div>
+                <div class="nav-item">
+                    <span style="font-size: 1.2rem;">⚡</span> Mod Center
+                </div>
+                <div class="nav-item" onclick="app.showDeposit()">
+                    <span style="font-size: 1.2rem;">💰</span> Nạp Tiền (VietQR)
+                </div>
+                <div class="nav-item">
+                    <span style="font-size: 1.2rem;">📜</span> Lịch Sử
+                </div>
+            </nav>
+            
+            <div style="padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                <div class="nav-item" onclick="app.logout()" style="color: #ff5e5e;">
+                    <span style="font-size: 1.2rem;">🚪</span> Đăng Xuất
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+                <div>
+                    <h2 style="font-size: 2.2rem; font-weight: 600;">Chào, <span id="display-name" style="color: var(--primary);">User</span>!</h2>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                        <div id="server-dot" style="width: 10px; height: 10px; background: #555; border-radius: 50%; box-shadow: 0 0 10px #555;"></div>
+                        <p id="server-status" style="font-size: 0.9rem; color: var(--text-dim);">Đang kiểm tra kết nối...</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="padding: 20px 40px; border-radius: 25px; border-left: 4px solid var(--primary);">
+                    <p style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px;">Số dư khả dụng</p>
+                    <h3 id="display-balance" style="font-size: 2rem; color: #00ff88; font-weight: 700;">0 VNĐ</h3>
+                </div>
+            </header>
+
+            <div id="main-content" class="fade-in">
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px;">
+                    <div class="stat-card" style="background: linear-gradient(135deg, rgba(112,0,255,0.05), transparent);">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 20px;">Hệ Thống Trực Tuyến</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 15px;">
+                                <p style="font-size: 0.8rem; color: var(--text-dim);">TRẠNG THÁI VPS</p>
+                                <p style="font-weight: 600; color: #00ff88;">ỔN ĐỊNH</p>
+                            </div>
+                            <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 15px;">
+                                <p style="font-size: 0.8rem; color: var(--text-dim);">ĐỘ TRỄ (PING)</p>
+                                <p style="font-weight: 600; color: var(--primary);">12ms</p>
+                            </div>
+                        </div>
+                        <p style="margin-top: 25px; color: var(--text-dim); font-size: 0.9rem;">Toàn bộ dữ liệu của bạn được mã hóa an toàn trên cụm máy chủ VPS trung tâm.</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 20px;">Thông Báo</h4>
+                        <ul style="list-style: none; font-size: 0.9rem; color: var(--text-dim);">
+                            <li style="margin-bottom: 15px; display: flex; gap: 10px;">
+                                <span style="color: var(--primary);">•</span>
+                                Đã cập nhật tính năng nạp VietQR 2.0.
+                            </li>
+                            <li style="display: flex; gap: 10px;">
+                                <span style="color: var(--primary);">•</span>
+                                Bảo trì hệ thống định kỳ vào 2h sáng Chủ Nhật.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Deposit Area -->
+                <div id="deposit-modal" class="hidden fade-in" style="margin-top: 40px;">
+                    <div class="stat-card" style="max-width: 700px; margin: 0 auto; text-align: center;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Nạp Tiền Tự Động</h3>
+                        <p style="color: var(--text-dim); margin-bottom: 35px;">Tiền sẽ được cộng vào tài khoản sau 10-20 giây.</p>
+                        
+                        <div style="max-width: 400px; margin: 0 auto;">
+                            <input type="number" id="dep-amount" placeholder="Nhập số tiền nạp (VD: 50000)">
+                            <button class="btn-primary" id="btn-qr" onclick="app.createQR()">TẠO MÃ VIETQR</button>
+                        </div>
+                        
+                        <div id="qr-result" class="hidden fade-in" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--glass-border);">
+                            <div style="background: white; padding: 15px; display: inline-block; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                                <img id="qr-img" src="" style="max-width: 240px; display: block;">
+                            </div>
+                            <div style="margin-top: 25px;">
+                                <p style="font-size: 1.1rem; color: var(--text-dim);">Nội dung chuyển khoản:</p>
+                                <h2 id="qr-info" style="color: var(--primary); margin-top: 5px; font-family: monospace; font-size: 1.8rem;">NAP ...</h2>
+                                <p style="font-size: 0.8rem; color: #ff00c8; margin-top: 10px;">Lưu ý: Ghi đúng nội dung để được cộng tiền tự động.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
