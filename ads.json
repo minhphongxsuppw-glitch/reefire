@@ -3,30 +3,16 @@
     "is_ads_enabled": true,
     
     "// CHỌN KIỂU LẶP LẠI": "Có 2 cách kích hoạt quảng cáo (chọn 1 trong 2 hoặc cả 2)",
-    "show_after_clicks": 3,      // Cứ sau 3 lần user tương tác (click mod, tải mod...) thì nhảy QC
+    "show_after_clicks": 5,      // Cứ sau 3 lần user tương tác (click mod, tải mod...) thì nhảy QC
     "show_after_seconds": 120    // Cứ sau 120 giây (2 phút) nhảy QC 1 lần
   },
   "ads_list": [
     {
       "id": 1,
       "priority": 1, // Số càng nhỏ càng ưu tiên hiện trước
-      "image_url": "https://link-anh-cua-ban.com/anh_1080x2414.jpg",
+      "image_url": "https://sf-static.upanhlaylink.com/img/image_20260616460591ef0b25a18723c8542158594a51.jpg",
       "click_url": "https://shophonghac.online/product/genplay-code-doi-may-7-ngay1530-",
       "weight": 50 // Tỷ lệ xuất hiện (Nếu dùng random theo tỷ lệ)
-    },
-    {
-      "id": 2,
-      "priority": 2,
-      "image_url": "https://link-anh-cua-ban.com/anh_2.jpg",
-      "click_url": "https://shophonghac.online/sp-khac",
-      "weight": 30
-    },
-    {
-      "id": 3,
-      "priority": 3,
-      "image_url": "https://link-anh-cua-ban.com/anh_3.jpg",
-      "click_url": "https://shophonghac.online/sp-3",
-      "weight": 20
     }
   ]
 }
