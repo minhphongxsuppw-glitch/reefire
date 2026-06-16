@@ -3,7 +3,7 @@
     "is_ads_enabled": true,
     
     "// CHỌN KIỂU LẶP LẠI": "Có 2 cách kích hoạt quảng cáo (chọn 1 trong 2 hoặc cả 2)",
-    "show_after_clicks": 4,      // Cứ sau 3 lần user tương tác (click mod, tải mod...) thì nhảy QC
+    "show_after_clicks": 3,      // Cứ sau 3 lần user tương tác (click mod, tải mod...) thì nhảy QC
     "show_after_seconds": 120    // Cứ sau 120 giây (2 phút) nhảy QC 1 lần
   },
   "ads_list": [
